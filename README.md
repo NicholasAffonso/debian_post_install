@@ -13,4 +13,4 @@ And run the program with sudo privileges
 sudo ./start.sh
 ```
 
-> Commented codes are still not working properly
+> Commented codes are still **not working properly**
