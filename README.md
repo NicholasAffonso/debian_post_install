@@ -2,7 +2,7 @@
 ### Is a debian post install program
 Should be useful if you have a fresh install
 
-#### To run
+## To run
 Give execution permission for the ```charlotte``` file
 ```bash
 chmod +x charlotte
