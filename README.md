@@ -1,16 +1,12 @@
-# Debian post install
-Some settings for post installation of debian-based systems.
-Sshould be useful if you are a programmer and have a fresh install
-can you help me with if you want
+# Charlotte is a debian post install program
+Should be useful if you have a fresh install
 
 #### To run
-Give execution permission for the ```start.sh``` file
+Give execution permission for the ```charlotte``` file
 ```bash
-chmod +x start.sh
+chmod +x charlotte
 ```
 And run the program with sudo privileges
 ```bash
-sudo ./start.sh
+sudo ./charlotte
 ```
-
-> Commented codes are still **not working properly**

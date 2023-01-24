@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+#-------------------------------
+# Script    : Charlotte
+# Versão    : Desenvolvimento
+# Autor     : Nicholas Affonso
+# Ciado em  : 17 01 2023
+# Licença   : GNU/GPL v3.0
+#-------------------------------
+# Descrição : 
+#
+# Charlotte é um programa que auxilia
+# no processo de pós instalação
+# de um ambiente linux debian
+#-------------------------------
+# Uso: 
+#
+# De permissão de execução ao arquivo charlotte e
+# inicie o programa com comando ./charlotte
+#
+# Leia o documento README para mais informações
+#-------------------------------
+
+#--------| INÍCIO VARIÁVEIS |--------#
+line="\n---------------------------------\n"
+users=( $(ls /home/) )
+#---------| FIM VARIÁVEIS |----------#
+
+clear
+# Verifica se o usuário é root
+[ "$EUID" -ne 0 ] && {
+	printf "$line"%c"Por favor, rode como root$line"
+	exit 1
+}
+
+printf "$line"%c"INSTALANDO ALGUNS PACOTES$line"
+
+apt install -y \
+sudo \
+vim \
+neofetch \
+htop \
+cmatrix \
+git \
+tmux \
+wget \
+curl \
+nmap \
+fzf \
+tmuxp
+
+printf "$line"%c"CLONANDO DOTFILES$line"
+
+for i in "${users[@]}"
+do 
+	mkdir -p /home/$i/git
+	cd /home/$i/git
+	pwd
+
+	git clone https://www.github.com/nicholasaffonso/dotfiles
+	git clone https://www.github.com/asdf-vm/asdf.git
+  git clone https://www.github.com/tmux-plugins/tpm
+  
+	printf "\n"
+
+	echo ". /home/$i/git/asdf/asdf.sh" >> /home/$i/.bashrc
+	echo ". /home/$i/git/asdf/completions/asdf.bash" >> /home/$i/.bashrc
+  
+done
+
+	cd ~/git
+	pwd
+  
+	git clone https://www.github.com/nicholasaffonso/dotfiles
+	git clone https://www.github.com/asdf-vm/asdf.git
+  git clone https://www.github.com/tmux-plugins/tpm
+
+	echo ". $HOME/git/asdf/asdf.sh" >> $HOME/.bashrc
+	echo ". $HOME/git/asdf/completions/asdf.bash" >> $HOME/.bashrc
+
+printf "$line"%c"DOTFILES CLONADOS$line"
+
+exit 0
