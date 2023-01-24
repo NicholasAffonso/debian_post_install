@@ -1,5 +1,5 @@
 # Charlotte 
-## a debian post install program
+### Is a debian post install program
 Should be useful if you have a fresh install
 
 #### To run
