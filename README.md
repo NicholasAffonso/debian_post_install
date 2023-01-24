@@ -1,4 +1,4 @@
-# Charlotte 
+# CHARLOTTE 
 ### Is a debian post install program
 Should be useful if you have a fresh install
 
