@@ -22,7 +22,8 @@
 
 #--------| INÍCIO VARIÁVEIS |--------#
 line="\n---------------------------------\n"
-users=( $(ls /home/) )
+user=( $(getent passwd 1000 | awk -F':' '{ print $1 }') )
+charlotte=$(dirname "$0")
 #---------| FIM VARIÁVEIS |----------#
 
 clear
@@ -32,51 +33,35 @@ clear
 	exit 1
 }
 
-printf "$line"%c"INSTALANDO ALGUNS PACOTES$line"
+apt update -y
+apt upgrade -y
+apt autoremove
 
-apt install -y \
-sudo \
-vim \
-neofetch \
-htop \
-cmatrix \
-git \
-tmux \
-wget \
-curl \
-nmap \
-fzf \
-tmuxp
+# Instalando progamas de CLI
+apt install -y $(cat $charlotte/pkgs/cli)
 
-printf "$line"%c"CLONANDO DOTFILES$line"
+# Instalando drivers
+apt install -y $(cat $charlotte/pkgs/amdDrivers)
 
-for i in "${users[@]}"
-do 
-	mkdir -p /home/$i/git
-	cd /home/$i/git
-	pwd
+# Instalando ambiente gráfico
+#apt install -y $(cat $charlotte/pkgs/gui)
 
-	git clone https://www.github.com/nicholasaffonso/dotfiles
-	git clone https://www.github.com/asdf-vm/asdf.git
-  git clone https://www.github.com/tmux-plugins/tpm
+# Instalando pacotes multimidia CLI
+apt install -y $(cat $charlotte/pkgs/multimidia)
+
+# Instalando fonts
+mkdir -p /home/$user/.local/share/fonts
+cd /home/$user/.local/share/fonts && curl -fLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/DroidSansMono/DroidSansMNerdFont-Regular.otf
+
+# Clonando repositórios
+#cd /home/$user
+
+#git clone https://github.com/NicholasAffonso/dotfiles.git
+
+#git clone https://www.github.com/asdf-vm/asdf.git
+#git clone https://www.github.com/tmux-plugins/tpm
   
-	printf "\n"
-
-	echo ". /home/$i/git/asdf/asdf.sh" >> /home/$i/.bashrc
-	echo ". /home/$i/git/asdf/completions/asdf.bash" >> /home/$i/.bashrc
+#echo ". /home/$user/asdf/asdf.sh" >> /home/$user/.bashrc
+#echo ". /home/$user/asdf/completions/asdf.bash" >> /home/$user/.bashrc
   
-done
-
-	cd ~/git
-	pwd
-  
-	git clone https://www.github.com/nicholasaffonso/dotfiles
-	git clone https://www.github.com/asdf-vm/asdf.git
-  git clone https://www.github.com/tmux-plugins/tpm
-
-	echo ". $HOME/git/asdf/asdf.sh" >> $HOME/.bashrc
-	echo ". $HOME/git/asdf/completions/asdf.bash" >> $HOME/.bashrc
-
-printf "$line"%c"DOTFILES CLONADOS$line"
-
 exit 0

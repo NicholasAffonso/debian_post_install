@@ -1,0 +1,10 @@
+amd64-microcode
+firmware-amd-graphics
+libgl1-mesa-dri
+libglx-mesa0
+mesa-vulkan-drivers
+xserver-xorg-video-radeon
+xserver-xorg-video-all
+wireless-tools
+iw
+iwd
